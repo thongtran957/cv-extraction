@@ -1,0 +1,18 @@
+# install pdf2text
+    - pip: pip install pdfminer.six
+    - conda: conda install -c conda-forge pdfminer.six
+
+# install docx
+    - pip: pip install python-docx
+    - conda: conda install -c conda-forge python-docx
+
+# install spacy 
+    -pip: pip install -U spacy
+    -conda: conda install -c conda-forge spacy
+
+    ## download model
+        - python -m spacy download en_core_web_sm
+
+# install nltk
+    -pip: pip install nltk
+    -conda: conda install -c anaconda nltk
