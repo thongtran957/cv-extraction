@@ -1,6 +1,7 @@
 import pdf2text
 import re
-
+import nltk
+from nltk.tag.stanford import StanfordNERTagger
 
 def main():
     file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
@@ -11,16 +12,21 @@ def main():
     emails = extract_email(text)
     phone = extract_mobile_number(text)
     address = extract_address(text)
-    person_name = extract_person_name(text)
-
+    extract_person_name(text)
     print(emails)
     print(phone)
-    print(person_name)
     print(address)
 
 
 def extract_person_name(text):
-   return 1
+    st = StanfordNERTagger('stanford-ner/english.all.3class.distsim.crf.ser.gz',
+                       'stanford-ner/stanford-ner.jar')
+    for sent in nltk.sent_tokenize(text):
+        tokens = nltk.tokenize.word_tokenize(sent)
+        tags = st.tag(tokens)
+        for tag in tags:
+            if tag[1] in ["PERSON", "LOCATION", "ORGANIZATION"]:
+                print(tag)
 
 def extract_address(text):
     regular_expression = re.compile(r"[0-9]+ [a-z0-9,\.# ]+\bCA\b", re.IGNORECASE)
