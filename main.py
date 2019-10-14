@@ -1,5 +1,11 @@
 import pdf2text
 import re
+
+# if code not working
+import os
+java_path = "C:/Program Files/Java/jdk1.8.0_221/bin/java.exe"
+os.environ['JAVAHOME'] = java_path
+
 import nltk
 from nltk.tag.stanford import StanfordNERTagger
 
@@ -12,28 +18,36 @@ def main():
     emails = extract_email(text)
     phone = extract_mobile_number(text)
     address = extract_address(text)
-    extract_person_name(text)
+    person_name = extract_person_name(text)
+    print(person_name)
     print(emails)
     print(phone)
     print(address)
 
-
 def extract_person_name(text):
-    st = StanfordNERTagger('stanford-ner/english.all.3class.distsim.crf.ser.gz',
-                       'stanford-ner/stanford-ner.jar')
-    for sent in nltk.sent_tokenize(text):
-        tokens = nltk.tokenize.word_tokenize(sent)
-        tags = st.tag(tokens)
-        for tag in tags:
-            if tag[1] in ["PERSON", "LOCATION", "ORGANIZATION"]:
-                print(tag)
-
+    person_name = ''
+    try:
+        st = StanfordNERTagger('stanford-ner/english.all.3class.distsim.crf.ser.gz',
+                        'stanford-ner/stanford-ner.jar')
+        for sent in nltk.sent_tokenize(text):
+            tokens = nltk.tokenize.word_tokenize(sent)
+            tags = st.tag(tokens)
+            for tag in tags:
+                if tag[1] in ["PERSON"]:
+                    person_name += tag[0] + ' '
+    except Exception as e:
+        print(e)
+    return person_name
 def extract_address(text):
-    regular_expression = re.compile(r"[0-9]+ [a-z0-9,\.# ]+\bCA\b", re.IGNORECASE)
-    result = re.search(regular_expression, text)
-    if result:
-        result = result.group()
-    return result
+    address = None
+    try:
+        regular_expression = re.compile(r"[0-9]+ [a-z0-9,\.# ]+\bCA\b", re.IGNORECASE)
+        address = re.search(regular_expression, text)
+        if address:
+            address = address.group()
+    except Exception as e:
+        print(e)
+    return address
 
 def extract_email(text):
     email = None
