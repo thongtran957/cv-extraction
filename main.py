@@ -38,6 +38,7 @@ def extract_person_name(text):
     except Exception as e:
         print(e)
     return person_name
+    
 def extract_address(text):
     address = None
     try:

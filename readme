@@ -16,3 +16,9 @@
 # install nltk
     -pip: pip install nltk
     -conda: conda install -c anaconda nltk
+
+# install pdf2image
+    -pip: pip install pdf2image
+    -conda: 
+        + conda install -c conda-forge poppler
+        + conda install -c conda-forge pdf2image
