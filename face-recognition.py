@@ -1,9 +1,12 @@
 import cv2
- 
+from pdf2img import pdf_2_img
+
+image_path = pdf_2_img('pdf/sample-smart-and-balanced-resume.pdf')
 # Bước 1: Tấm ảnh và tệp tin xml
-face_cascade_path = "C:/Users/Thong Tran/Anaconda3/Library/etc/haarcascades/"
+# face_cascade_path = "C:/Users/Thong Tran/Anaconda3/Library/etc/haarcascades/"
+face_cascade_path = "C:/Users/thongtran/Anaconda3/Library/etchaarcascades/"
 face_cascade = cv2.CascadeClassifier(face_cascade_path + "haarcascade_frontalface_default.xml")
-image = cv2.imread("images/Bill Gates.jpg")
+image = cv2.imread(image_path)
  
 # Bước 2: Tạo một bức ảnh xám
 grayImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

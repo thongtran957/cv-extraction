@@ -16,9 +16,14 @@
 # install nltk
     -pip: pip install nltk
     -conda: conda install -c anaconda nltk
-
+# install opencv
+    -conda: conda install -c conda-forge opencv
 # install pdf2image
     -pip: pip install pdf2image
     -conda: 
         + conda install -c conda-forge poppler
         + conda install -c conda-forge pdf2image
+
+# install PyPDF2: 
+    -pip: pip install PyPDF2
+    -conda: conda install -c conda-forge PyPDF2
