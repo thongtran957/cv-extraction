@@ -8,6 +8,7 @@ os.environ['JAVAHOME'] = java_path
 
 import nltk
 from nltk.tag.stanford import StanfordNERTagger
+from face_recognize import face_recognize
 
 def main():
     file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
@@ -19,10 +20,12 @@ def main():
     phone = extract_mobile_number(text)
     address = extract_address(text)
     person_name = extract_person_name(text)
+    avatar_path = face_recognize(file_path)
     print(person_name)
     print(emails)
     print(phone)
     print(address)
+    print(avatar_path)
 
 def extract_person_name(text):
     person_name = ''
