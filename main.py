@@ -1,13 +1,19 @@
 import pdf2text
 import re
+import os
+import pandas as pd
+import spacy
 
 # if code not working
-import os
-java_path = "C:/Program Files/Java/jdk1.8.0_221/bin/java.exe"
-os.environ['JAVAHOME'] = java_path
+# import os
+# java_path = "C:/Program Files/Java/jdk1.8.0_221/bin/java.exe"
+# os.environ['JAVAHOME'] = java_path
 
 import nltk
 from nltk.tag.stanford import StanfordNERTagger
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords 
+
 from face_recognize import face_recognize
 
 def main():
@@ -21,11 +27,13 @@ def main():
     address = extract_address(text)
     person_name = extract_person_name(text)
     avatar_path = face_recognize(file_path)
+    skills = extract_skills(text)
     print(person_name)
     print(emails)
     print(phone)
     print(address)
     print(avatar_path)
+    print(skills)
 
 def extract_person_name(text):
     person_name = ''
@@ -88,4 +96,13 @@ def extract_mobile_number(text):
         print(e)
     return phones
 
+def extract_skills(text):
+    tokens = nltk.word_tokenize(text)
+    data = pd.read_csv(os.path.join(os.path.dirname(__file__), 'skills.csv')) 
+    skills = list(data.columns.values)
+    skillset = []
+    for token in tokens:
+        if token.lower() in skills:
+            skillset.append(token)
+    return skillset
 main()

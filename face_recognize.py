@@ -24,7 +24,7 @@ def pdf_2_img(pdf_path):
 def face_recognize(pdf_path):
     image_path = pdf_2_img(pdf_path)
     # Bước 1: Tấm ảnh và tệp tin xml
-    face_cascade_path = "C:/Users/Thong Tran/Anaconda3/Library/etc/haarcascades/"
+    face_cascade_path = "/home/thongtran/.local/lib/python3.6/site-packages/cv2/data/"
     # face_cascade_path = "C:/Users/thongtran/Anaconda3/Library/etc/haarcascades/"
     face_cascade = cv2.CascadeClassifier(face_cascade_path + "haarcascade_frontalface_default.xml")
     image = cv2.imread(image_path)
