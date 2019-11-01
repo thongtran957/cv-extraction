@@ -3,6 +3,7 @@ import re
 import os
 import pandas as pd
 import spacy
+import pattern as pt
 
 # if code not working
 # import os
@@ -28,12 +29,14 @@ def main():
     person_name = extract_person_name(text)
     avatar_path = face_recognize(file_path)
     skills = extract_skills(text)
+    education = extract_education(text)
     print(person_name)
     print(emails)
     print(phone)
     print(address)
     print(avatar_path)
     print(skills)
+    print(education)
 
 def extract_person_name(text):
     person_name = ''
@@ -97,7 +100,7 @@ def extract_mobile_number(text):
     return phones
 
 def extract_skills(text):
-    tokens = nltk.word_tokenize(text)
+    tokens = nltk.tokenize.word_tokenize(text)
     data = pd.read_csv(os.path.join(os.path.dirname(__file__), 'skills.csv')) 
     skills = list(data.columns.values)
     skillset = []
@@ -105,4 +108,23 @@ def extract_skills(text):
         if token.lower() in skills:
             skillset.append(token)
     return skillset
+
+def extract_education(atext):
+    edu = {}
+    for index, text in enumerate(atext):
+        for tex in text.split():
+            tex = re.sub(r'[?|$|.|!|,]', r'', tex)
+            if tex.upper() in pt.EDUCATION and tex not in pt.STOPWORDS:
+                edu[tex] = text + atext[index + 1]
+
+    education = []
+    for key in edu.keys():
+        year = re.search(re.compile(pt.YEAR), edu[key])
+        if year:
+            education.append((key, ''.join(year.group(0))))
+        else:
+            education.append(key)
+    return education
+
+
 main()
