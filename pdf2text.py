@@ -19,7 +19,7 @@ def extract_text_from_pdf(pdf_path):
                 resource_manager,
                 fake_file_handle,
                 codec='utf-8',
-                laparams=LAParams()
+                laparams=LAParams(line_margin=0.1)
             )
 
             # creating a page interpreter

@@ -16,26 +16,25 @@ from face_recognize import face_recognize
 # os.environ['JAVAHOME'] = java_path
 
 def main():
-    file_path = 'pdf/PHP Web Developer Resume.pdf'
+    file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
     text = ''
     for page in pdf2text.extract_text_from_pdf(file_path):
         text += ' ' + page
-
-    emails = extract_email(text)
-    phone = extract_mobile_number(text)
-    address = extract_address(text)
-    person_name = extract_person_name(text)
+    # email = extract_email(text)
+    # phone = extract_mobile_number(text)
+    # address = extract_address(text)
+    # person_name = extract_person_name(text)
     # avatar_path = face_recognize(file_path)
-    skills = extract_skills(text)
+    # skills = extract_skills(text)
     # education = extract_education(text)
     # experience = extract_experience(text)
     # competencie = extract_competencie(text, experience)
-    print(person_name)
-    print(emails)
-    print(phone)
-    print(address)
+    # print(person_name)
+    # print(email)
+    # print(phone)
+    # print(address)
     # print(avatar_path)
-    print(skills)
+    # print(skills)
     # print(education)
     # print(experience)
     # print(competencie)
@@ -150,22 +149,19 @@ def extract_skills(text):
             skillset.append(token)
     return skillset
 
-def extract_education(atext):
-    edu = {}
-    for index, text in enumerate(atext):
-        for tex in text.split():
-            tex = re.sub(r'[?|$|.|!|,]', r'', tex)
-            if tex.upper() in pt.EDUCATION and tex not in pt.STOPWORDS:
-                edu[tex] = text + atext[index + 1]
-
+def extract_education(text):
     education = []
-    for key in edu.keys():
-        year = re.search(re.compile(pt.YEAR), edu[key])
-        if year:
-            education.append((key, ''.join(year.group(0))))
-        else:
-            education.append(key)
+   
+    tokens = nltk.tokenize.word_tokenize(text)
+    for index, token in enumerate(tokens):
+        if token.upper() in pt.EDUCATION and token not in pt.STOPWORDS:
+            temp = ""
+            for i in range(0,4):
+                temp += tokens[index + i] + ' '
+            education.append(temp)
+            
     return education
+    
 
 def string_found(string1, string2):
     if re.search(r"\b" + re.escape(string1) + r"\b", string2):
