@@ -16,28 +16,30 @@ from face_recognize import face_recognize
 # os.environ['JAVAHOME'] = java_path
 
 def main():
-    file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
+    file_path = 'pdf/Jacky-Smith-Resume-Project-Manager-3.pdf'
     text = ''
     for page in pdf2text.extract_text_from_pdf(file_path):
         text += ' ' + page
-    # email = extract_email(text)
-    # phone = extract_mobile_number(text)
-    # address = extract_address(text)
-    # person_name = extract_person_name(text)
-    # avatar_path = face_recognize(file_path)
-    # skills = extract_skills(text)
-    # education = extract_education(text)
-    # experience = extract_experience(text)
-    # competencie = extract_competencie(text, experience)
-    # print(person_name)
-    # print(email)
-    # print(phone)
-    # print(address)
-    # print(avatar_path)
-    # print(skills)
-    # print(education)
-    # print(experience)
-    # print(competencie)
+    email = extract_email(text)
+    phone = extract_mobile_number(text)
+    address = extract_address(text)
+    person_name = extract_person_name(text)
+    skills = extract_skills(text)
+    education = extract_education(text)
+    experience = extract_experience(text)
+    print('Fullname:')
+    print(person_name)
+    print('Email: ')
+    print(email)
+    print('Phone: ')
+    print(phone)
+    print('Address: ')
+    print(address)
+    print('Job Skills: ')
+    print(skills)
+    print('Education: ')
+    print(education)
+
 
 
 def extract_experience(text):
@@ -62,11 +64,6 @@ def extract_experience(text):
     return x
 
 def extract_competencie(text, experience_list):
-    '''
-    Helper function to extract competencies from resume text
-    :param resume_text: Plain resume text
-    :return: dictionary of competencies
-    '''
     experience_text = ' '.join(experience_list)
     competency_dict = {}
 
@@ -77,6 +74,7 @@ def extract_competencie(text, experience_list):
                     competency_dict[competency] = [item]
                 else:
                     competency_dict[competency].append(item)
+    return competency_dict
 
 def extract_person_name(text):
     person_name = ''
@@ -167,5 +165,20 @@ def string_found(string1, string2):
     if re.search(r"\b" + re.escape(string1) + r"\b", string2):
         return True
     return False
+
+# def extract_text(file_path, extension):
+#     '''
+#     Wrapper function to detect the file extension and call text extraction function accordingly
+
+#     :param file_path: path of file of which text is to be extracted
+#     :param extension: extension of file `file_name`
+#     '''
+#     text = ''
+#     if extension == '.pdf':
+#         for page in extract_text_from_pdf(file_path):
+#             text += ' ' + page
+#     elif extension == '.docx':
+#         text = extract_text_from_docx(file_path)
+#     return text
 
 main()
