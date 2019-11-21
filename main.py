@@ -16,29 +16,30 @@ from face_recognize import face_recognize
 # os.environ['JAVAHOME'] = java_path
 
 def main():
-    file_path = 'pdf/Jacky-Smith-Resume-Project-Manager-3.pdf'
+    file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
     text = ''
     for page in pdf2text.extract_text_from_pdf(file_path):
         text += ' ' + page
-    email = extract_email(text)
-    phone = extract_mobile_number(text)
-    address = extract_address(text)
-    person_name = extract_person_name(text)
-    skills = extract_skills(text)
-    education = extract_education(text)
-    experience = extract_experience(text)
-    print('Fullname:')
-    print(person_name)
-    print('Email: ')
-    print(email)
-    print('Phone: ')
-    print(phone)
-    print('Address: ')
-    print(address)
-    print('Job Skills: ')
-    print(skills)
-    print('Education: ')
-    print(education)
+    print(text)
+    # email = extract_email(text)
+    # phone = extract_mobile_number(text)
+    # address = extract_address(text)
+    # person_name = extract_person_name(text)
+    # skills = extract_skills(text)
+    # education = extract_education(text)
+    # experience = extract_experience(text)
+    # print('Fullname:')
+    # print(person_name)
+    # print('Email: ')
+    # print(email)
+    # print('Phone: ')
+    # print(phone)
+    # print('Address: ')
+    # print(address)
+    # print('Job Skills: ')
+    # print(skills)
+    # print('Education: ')
+    # print(education)
 
 
 

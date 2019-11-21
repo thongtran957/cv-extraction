@@ -1,27 +1,27 @@
-Å´transitions⁄∂[
+Å´transitions⁄û[
   {
     "clas":0,
     "move":1,
-    "label":"PERSON",
-    "name":"B-PERSON"
+    "label":"XYZ",
+    "name":"B-XYZ"
   },
   {
     "clas":1,
     "move":2,
-    "label":"PERSON",
-    "name":"I-PERSON"
+    "label":"XYZ",
+    "name":"I-XYZ"
   },
   {
     "clas":2,
     "move":3,
-    "label":"PERSON",
-    "name":"L-PERSON"
+    "label":"XYZ",
+    "name":"L-XYZ"
   },
   {
     "clas":3,
     "move":4,
-    "label":"PERSON",
-    "name":"U-PERSON"
+    "label":"XYZ",
+    "name":"U-XYZ"
   },
   {
     "clas":4,

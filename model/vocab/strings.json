@@ -943,6 +943,7 @@
   "\u2019nuff",
   "\u2019\u2019",
   "ROOT",
+  "XYZ",
   "Kofi",
   "kofi",
   "ofi",
@@ -950,6 +951,12 @@
   "Annan",
   "annan",
   "nan",
+  "Steve",
+  "steve",
+  "eve",
+  "Jobs",
+  "jobs",
+  "obs",
   "like",
   "ike",
   "London",
@@ -958,11 +965,5 @@
   "and",
   "Berlin",
   "berlin",
-  "lin",
-  "Steve",
-  "steve",
-  "eve",
-  "Jobs",
-  "jobs",
-  "obs"
+  "lin"
 ]
