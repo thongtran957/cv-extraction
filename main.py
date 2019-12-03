@@ -9,79 +9,42 @@ from nltk.tag.stanford import StanfordNERTagger
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords 
 from face_recognize import face_recognize
+import sys
 
 # if code not working
 # import os
 # java_path = "C:/Program Files/Java/jdk1.8.0_221/bin/java.exe"
 # os.environ['JAVAHOME'] = java_path
 
-def main():
-    file_path = 'pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
+def main(file_path):
+    # file_path = '/home/thongtran/projects/cv-extraction/pdf/Elliot-Alderson-Resume-Software-Developer-1.pdf'
     text = ''
     for page in pdf2text.extract_text_from_pdf(file_path):
         text += ' ' + page
-    print(text)
-    # email = extract_email(text)
-    # phone = extract_mobile_number(text)
-    # address = extract_address(text)
-    # person_name = extract_person_name(text)
-    # skills = extract_skills(text)
-    # education = extract_education(text)
-    # experience = extract_experience(text)
-    # print('Fullname:')
-    # print(person_name)
-    # print('Email: ')
-    # print(email)
-    # print('Phone: ')
-    # print(phone)
-    # print('Address: ')
-    # print(address)
-    # print('Job Skills: ')
-    # print(skills)
-    # print('Education: ')
-    # print(education)
-
-
-
-def extract_experience(text):
-    word_tokens = nltk.tokenize.word_tokenize(text)
-    wordnet_lemmatizer = WordNetLemmatizer()
-    stop_words = pt.STOPWORDS
-    filtered_sentence = [w for w in word_tokens if not w in stop_words and wordnet_lemmatizer.lemmatize(w) not in stop_words] 
-    sent = nltk.pos_tag(filtered_sentence)
-    cp = nltk.RegexpParser('P: {<NNP>+}')
-    cs = cp.parse(sent)
-    
-    # for i in cs.subtrees(filter=lambda x: x.label() == 'P'):
-    #     print(i)
-    
-    test = []
-    
-    for vp in list(cs.subtrees(filter=lambda x: x.label()=='P')):
-        test.append(" ".join([i[0] for i in vp.leaves() if len(vp.leaves()) >= 2]))
-
-    # Search the word 'experience' in the chunk and then print out the text after it
-    x = [x[x.lower().index('experience') + 10:] for i, x in enumerate(test) if x and 'experience' in x.lower()]
-    return x
-
-def extract_competencie(text, experience_list):
-    experience_text = ' '.join(experience_list)
-    competency_dict = {}
-
-    for competency in pt.COMPETENCIES.keys():
-        for item in pt.COMPETENCIES[competency]:
-            if string_found(item, experience_text):
-                if competency not in competency_dict.keys():
-                    competency_dict[competency] = [item]
-                else:
-                    competency_dict[competency].append(item)
-    return competency_dict
+    email = extract_email(text)
+    phone = extract_mobile_number(text)
+    address = extract_address(text)
+    person_name = extract_person_name(text)
+    skills = extract_skills(text)
+    education = extract_education(text)
+    print('Fullname:')
+    print(person_name)
+    print('Email: ')
+    print(email)
+    print('Phone: ')
+    print(phone)
+    print('Address: ')
+    print(address)
+    print('Job Skills: ')
+    print(skills)
+    print('Education: ')
+    print(education)
 
 def extract_person_name(text):
     person_name = ''
     try:
-        st = StanfordNERTagger('stanford-ner/english.all.3class.distsim.crf.ser.gz',
-                        'stanford-ner/stanford-ner.jar')
+        st = StanfordNERTagger('/home/thongtran/projects/cv-extraction/stanford-ner/english.all.3class.distsim.crf.ser.gz',
+                        '/home/thongtran/projects/cv-extraction/stanford-ner/stanford-ner.jar')
         for sent in nltk.sent_tokenize(text):
             tokens = nltk.tokenize.word_tokenize(sent)
             tags = st.tag(tokens)
@@ -182,4 +145,6 @@ def string_found(string1, string2):
 #         text = extract_text_from_docx(file_path)
 #     return text
 
-main()
+if __name__ == '__main__':
+    file_path = sys.argv[1]
+    main(file_path)
