@@ -27,6 +27,10 @@ def main(file_path):
     person_name = extract_person_name(text)
     skills = extract_skills(text)
     education = extract_education(text)
+    list(dict.fromkeys(email))
+    list(dict.fromkeys(skills))
+    list(dict.fromkeys(phone))
+
     print('Fullname:')
     print(person_name)
     print('Email: ')

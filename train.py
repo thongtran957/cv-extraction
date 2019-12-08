@@ -12,7 +12,7 @@ import sys
 def train(path):
     model = None
     output_dir=Path("./model-1")
-    n_iter=50
+    n_iter=80
 
     TRAIN_DATA = read_file_json(path)
 
@@ -92,8 +92,8 @@ def test():
     print('Entities', [(ent.text, ent.label_) for ent in doc.ents])
     print('Tokens', [(t.text, t.ent_type_, t.ent_iob) for t in doc])
 
-# if __name__ == '__main__':
-#     path = sys.argv[1]
-#     train(path)
+if __name__ == '__main__':
+    path = sys.argv[1]
+    train(path)
 
-# train('/home/thongtran/projects/cv-extraction/traindata.json')
+
